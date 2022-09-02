@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.davutkarakus.currencyapp1.R
 import com.davutkarakus.currencyapp1.viewmodel.CurrencyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel:CurrencyViewModel
@@ -311,6 +312,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+       hataMesajiandYukleniyor()
     }
     fun observeLiveData1(karsilastir:String){
 
@@ -486,6 +488,31 @@ class MainActivity : AppCompatActivity() {
                     "ZAR"-> tutucuText2.text=(it.rates.zAR)!!.toString()
                     "ZMW"-> tutucuText2.text=(it.rates.zMW)!!.toString()
                     "ZWL"-> tutucuText2.text=(it.rates.zWL)!!.toString()
+                }
+            }
+        })
+        hataMesajiandYukleniyor()
+    }
+
+    fun hataMesajiandYukleniyor(){
+        viewModel.hataMesaji.observe(this, Observer {
+            it?.let {
+                if(it){
+                    hataMesajiTextView.visibility=View.VISIBLE
+                }
+                else{
+                    hataMesajiTextView.visibility=View.GONE
+                }
+            }
+        })
+        viewModel.yukleniyor.observe(this, Observer {
+            it?.let {
+                if(it){
+                    hataMesajiTextView.visibility=View.GONE
+                    progressBar2.visibility=View.VISIBLE
+                }
+                else{
+                    progressBar2.visibility=View.GONE
                 }
             }
         })
